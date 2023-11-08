@@ -1,0 +1,33 @@
+_version: 2
+title:
+  en: "Pet the cat!"
+  fr: "Caresse le chat !"
+ui:
+  en: "\n\
+      Cat petted: %{cat_petted}\n\
+      \n\
+      Multiplier: %{multiplier}\n\
+      Petting machine: %{petting_machine}\n\
+      \n\
+      Press <space> to pet the cat.\n\
+      %{multiplier_buy_text}\n\
+      %{petting_machine_buy_text}\n\
+      \n\
+      Press <q> or <ESC> to save & quit."
+  fr: "\n\
+      Chat caressé : %{cat_petted}\n\
+      \n\
+      Multiplicateur : %{multiplier}\n\
+      Machine à caresser : %{petting_machine}\n\
+      \n\
+      Appuyez sur <espace> pour caresser le chat.\n\
+      %{multiplier_buy_text}\n\
+      %{petting_machine_buy_text}\n\
+      \n\
+      Appuyez sur <q> ou <ECHAP> pour sauvegarder et quitter."
+multiplier_buy_text:
+  en: "Press <m> to buy a multiplier."
+  fr: "Appuyez sur <m> pour acheter un multiplicateur."
+petting_machine_buy_text:
+  en: "Press <f> to buy a petting machine."
+  fr: "Appuyez sur <f> pour acheter une machine à caresser."
