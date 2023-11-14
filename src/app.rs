@@ -1,13 +1,9 @@
 use std::{error, time::Instant};
+use pet_the_cat::game::Game;
 use serde::{Serialize, Deserialize};
-
-use crate::save;
 
 /// Application result type.
 pub type AppResult<T> = std::result::Result<T, Box<dyn error::Error>>;
-
-pub const MULTIPLIER_COST: u64 = 100;
-pub const PETTING_MACHINE_COST: u64 = 300;
 
 /// Application.
 #[derive(Serialize, Deserialize, Debug)]
@@ -16,25 +12,19 @@ pub struct App {
     /// Is the application running?
     #[serde(skip)]
     pub running: bool,
-    /// Cat petted
-    pub cat_petted: u64,
-    // Cat petted multiplier
-    pub multiplier: u64,
-    // Cat petter machine
-    pub cat_petting_machine: u64,
     // Time
     #[serde(skip, default = "Instant::now")]
     time: Instant,
+    // Game instance
+    pub game: Game,
 }
 
 impl Default for App {
     fn default() -> Self {
         Self {
             running: true,
-            cat_petted: 0,
-            multiplier: 1,
-            cat_petting_machine: 0,
             time: Instant::now(),
+            game: Game::new(),
         }
     }
 }
@@ -49,46 +39,50 @@ impl App {
     pub fn tick(&mut self) {
 
         // Pet cat by factory every second
-        if self.cat_petting_machine > 0 {
+        if self.game.petting_machine > 0 {
             let time = self.time.elapsed().as_secs();
             if time > 0 {
-                self.factory_pet_cat();
+                self.game.pet_cat_with_machine();
                 self.time = Instant::now();
             }
         }
 
     }
 
+    // Load the `Game` save file in TOML format
+    pub fn load(&mut self) {
+        let game_str_result = std::fs::read_to_string("save.toml");
+
+        let game_str = match game_str_result {
+            Ok(game_str) => game_str,
+            Err(_) => {
+                // Check if save file exists
+                let save_exists = std::path::Path::new("save.toml").exists();
+
+                if save_exists {
+                    // If it does, but we can't read it, then something is wrong
+                    panic!("Failed to read save file, fix it or delete it and restart the game");
+                }
+
+                // If it doesn't, then create a new save file
+                self.save();
+                return;
+            }
+        };
+
+        self.game = toml::from_str(&game_str).unwrap();
+    }
+
+    // Save the `Game` to a TOML file
+    pub fn save(&self) {
+        let save: String = toml::to_string(&self.game).unwrap();
+        std::fs::write("save.toml", save).unwrap();
+    }
+
     /// Set running to false to quit the application.
     pub fn quit(&mut self) {
-        save::save(self);
+        self.save();
         
         self.running = false;
-    }
-
-    pub fn pet_cat(&mut self) {
-        if let Some(res) = self.cat_petted.checked_add(self.multiplier) {
-            self.cat_petted = res;
-        }
-    }
-    
-    pub fn factory_pet_cat(&mut self) {
-        if let Some(res) = self.cat_petted.checked_add(self.cat_petting_machine) {
-            self.cat_petted = res;
-        }
-    }
-
-    pub fn buy_multiplier(&mut self) {
-        if let Some(res) = self.cat_petted.checked_sub(MULTIPLIER_COST) {
-            self.cat_petted = res;
-            self.multiplier += 1;
-        }
-    }
-
-    pub fn buy_factory(&mut self) {
-        if let Some(res) = self.cat_petted.checked_sub(PETTING_MACHINE_COST) {
-            self.cat_petted = res;
-            self.cat_petting_machine += 1;
-        }
     }
 }

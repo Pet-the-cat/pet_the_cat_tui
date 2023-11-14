@@ -13,9 +13,6 @@ pub mod tui;
 /// Event handler.
 pub mod handler;
 
-/// Save manager.
-pub mod save;
-
 /// Localization manager.
 pub mod localization;
 

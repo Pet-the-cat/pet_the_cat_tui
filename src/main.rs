@@ -1,18 +1,20 @@
-use pet_the_cats::app::AppResult;
-use pet_the_cats::event::{Event, EventHandler};
-use pet_the_cats::handler::handle_key_events;
-use pet_the_cats::save;
-use pet_the_cats::tui::Tui;
+use pet_the_cat_tui::app::{AppResult, App};
+use pet_the_cat_tui::event::{Event, EventHandler};
+use pet_the_cat_tui::handler::handle_key_events;
+use pet_the_cat_tui::tui::Tui;
 use std::io;
 use ratatui::backend::CrosstermBackend;
 use ratatui::Terminal;
 
 fn main() -> AppResult<()> {
     // Set the current localization to the system's locale.
-    pet_the_cats::localization::set_to_system();
+    pet_the_cat_tui::localization::set_to_system();
 
     // Create an application.
-    let mut app = save::load();
+    let mut app = App::new();
+
+    // Load the saved game state.
+    app.load();
 
     // Initialize the terminal user interface.
     let backend = CrosstermBackend::new(io::stderr());

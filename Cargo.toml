@@ -1,11 +1,12 @@
 [package]
-name = "pet-the-cats"
-version = "0.1.0"
+name = "pet_the_cat_tui"
+version = "0.2.0"
 authors = ["Tom Olivier <contact.tom60@proton.me>"]
 license = "MIT"
 edition = "2021"
 
 [dependencies]
+pet_the_cat = { git = "https://github.com/Pet-the-cat/pet_the_cat" }
 crossterm = "0.26.1"
 ratatui = "0.24.0"
 rust-i18n = "2.2.1"

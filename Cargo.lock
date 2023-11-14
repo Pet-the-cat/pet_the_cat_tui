@@ -403,10 +403,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "de3145af08024dea9fa9914f381a17b8fc6034dfb00f3a84013f7ff43f29ed4c"
 
 [[package]]
-name = "pet-the-cats"
+name = "pet_the_cat"
 version = "0.1.0"
+source = "git+https://github.com/Pet-the-cat/pet_the_cat#43ecec287254071190d0ffd9cc20e950c36b0b03"
+dependencies = [
+ "serde",
+]
+
+[[package]]
+name = "pet_the_cat_tui"
+version = "0.2.0"
 dependencies = [
  "crossterm 0.26.1",
+ "pet_the_cat",
  "ratatui",
  "rust-i18n",
  "serde",

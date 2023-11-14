@@ -5,7 +5,8 @@ use ratatui::{
     Frame,
 };
 
-use crate::app::{App, MULTIPLIER_COST, PETTING_MACHINE_COST};
+use crate::app::App;
+use pet_the_cat::game::{MULTIPLIER_COST, PETTING_MACHINE_COST};
 
 /// Renders the user interface widgets.
 pub fn render(app: &mut App, frame: &mut Frame) {
@@ -14,12 +15,12 @@ pub fn render(app: &mut App, frame: &mut Frame) {
     // - https://docs.rs/ratatui/latest/ratatui/widgets/index.html
     // - https://github.com/ratatui-org/ratatui/tree/master/examples
 
-    let multiplier_buy_text = if app.cat_petted >= MULTIPLIER_COST {
+    let multiplier_buy_text = if app.game.cat_petted >= MULTIPLIER_COST {
         t!("multiplier_buy_text")
     } else {
         String::new()
     };
-    let petting_machine_buy_text = if app.cat_petted >= PETTING_MACHINE_COST {
+    let petting_machine_buy_text = if app.game.cat_petted >= PETTING_MACHINE_COST {
         t!("petting_machine_buy_text")
     } else {
         String::new()
@@ -27,9 +28,9 @@ pub fn render(app: &mut App, frame: &mut Frame) {
 
     frame.render_widget(
         Paragraph::new(t!("ui",
-        cat_petted = app.cat_petted,
-        multiplier = app.multiplier,
-        petting_machine = app.cat_petting_machine,
+        cat_petted = app.game.cat_petted,
+        multiplier = app.game.multiplier,
+        petting_machine = app.game.petting_machine,
         multiplier_buy_text = multiplier_buy_text,
         petting_machine_buy_text = petting_machine_buy_text))
         .block(

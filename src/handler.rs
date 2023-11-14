@@ -20,15 +20,15 @@ pub fn handle_key_events(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
         }
         // Counter handlers
         KeyCode::Char(' ') => {
-            app.pet_cat();
+            app.game.pet_cat();
         }
 
         KeyCode::Char('m') => {
-            app.buy_multiplier();
+            app.game.buy_multiplier();
         }
 
         KeyCode::Char('f') => {
-            app.buy_factory();
+            app.game.buy_petting_machine();
         }
         // Other handlers you could add here.
         _ => {}
