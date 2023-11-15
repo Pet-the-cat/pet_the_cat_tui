@@ -1,19 +1,14 @@
 use std::{error, time::Instant};
 use pet_the_cat::game::Game;
-use serde::{Serialize, Deserialize};
 
 /// Application result type.
 pub type AppResult<T> = std::result::Result<T, Box<dyn error::Error>>;
 
 /// Application.
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(default = "Default::default")]
 pub struct App {
     /// Is the application running?
-    #[serde(skip)]
     pub running: bool,
     // Time
-    #[serde(skip, default = "Instant::now")]
     time: Instant,
     // Game instance
     pub game: Game,

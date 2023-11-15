@@ -418,7 +418,6 @@ dependencies = [
  "pet_the_cat",
  "ratatui",
  "rust-i18n",
- "serde",
  "sys-locale",
  "toml 0.8.8",
 ]
