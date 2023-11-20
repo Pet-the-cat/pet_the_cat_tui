@@ -6,7 +6,7 @@ license = "MIT"
 edition = "2021"
 
 [dependencies]
-pet_the_cat = { git = "https://github.com/Pet-the-cat/pet_the_cat" }
+pet_the_cat = { git = "https://github.com/Pet-the-cat/pet_the_cat", tag = "v0.1.0" }
 crossterm = "0.26.1"
 ratatui = "0.24.0"
 rust-i18n = "2.2.1"

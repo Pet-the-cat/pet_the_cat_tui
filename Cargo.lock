@@ -405,7 +405,7 @@ checksum = "de3145af08024dea9fa9914f381a17b8fc6034dfb00f3a84013f7ff43f29ed4c"
 [[package]]
 name = "pet_the_cat"
 version = "0.1.0"
-source = "git+https://github.com/Pet-the-cat/pet_the_cat#43ecec287254071190d0ffd9cc20e950c36b0b03"
+source = "git+https://github.com/Pet-the-cat/pet_the_cat?tag=v0.1.0#43ecec287254071190d0ffd9cc20e950c36b0b03"
 dependencies = [
  "serde",
 ]
